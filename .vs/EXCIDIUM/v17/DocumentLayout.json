@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\sahaj\\source\\repos\\EXCIDIUM\\",
+  "WorkspaceRootPath": "C:\\GitHub\\Excidium-Mahan\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5C496D32-E523-4C9C-AE09-0B8B2375CB5D}|EXCIDIUM\\EXCIDIUM.vcxproj|C:\\Users\\sahaj\\source\\repos\\EXCIDIUM\\EXCIDIUM\\EXCIDIUM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{5C496D32-E523-4C9C-AE09-0B8B2375CB5D}|EXCIDIUM\\EXCIDIUM.vcxproj|C:\\GitHub\\Excidium-Mahan\\EXCIDIUM\\EXCIDIUM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{5C496D32-E523-4C9C-AE09-0B8B2375CB5D}|EXCIDIUM\\EXCIDIUM.vcxproj|solutionrelative:EXCIDIUM\\EXCIDIUM.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -18,17 +18,17 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "EXCIDIUM.cpp",
-              "DocumentMoniker": "C:\\Users\\sahaj\\source\\repos\\EXCIDIUM\\EXCIDIUM\\EXCIDIUM.cpp",
+              "DocumentMoniker": "C:\\GitHub\\Excidium-Mahan\\EXCIDIUM\\EXCIDIUM.cpp",
               "RelativeDocumentMoniker": "EXCIDIUM\\EXCIDIUM.cpp",
-              "ToolTip": "C:\\Users\\sahaj\\source\\repos\\EXCIDIUM\\EXCIDIUM\\EXCIDIUM.cpp",
+              "ToolTip": "C:\\GitHub\\Excidium-Mahan\\EXCIDIUM\\EXCIDIUM.cpp",
               "RelativeToolTip": "EXCIDIUM\\EXCIDIUM.cpp",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAE0BAAAAAAAAAAAiwGwBAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-03-19T20:35:49.835Z",
               "EditorCaption": ""
