@@ -4,8 +4,11 @@
 #include <cstdlib>
 #include <ctime>
 #include <limits>   // Added for numeric_limits
-
-// using namespace std;  // Not best practice – replaced with explicit using declarations below
+#include <chrono>
+#include <thread>
+using namespace std;
+using namespace this_thread;
+// using namespace std;  // Not best practice ï¿½ replaced with explicit using declarations below
 
 using std::cout;
 using std::cin;
@@ -42,19 +45,19 @@ struct UserProfile {
 // Function to update the rank based on the user's level
 void updateRank(UserProfile& user) {
     if (user.level < 2)
-        user.rank = "Weak Hunter";
+        user.rank = "E";
     else if (user.level < 5)
-        user.rank = "E-Rank";
-    else if (user.level < 10)
         user.rank = "D-Rank";
-    else if (user.level < 15)
+    else if (user.level < 10)
         user.rank = "C-Rank";
-    else if (user.level < 20)
+    else if (user.level < 15)
         user.rank = "B-Rank";
-    else if (user.level < 25)
+    else if (user.level < 20)
         user.rank = "A-Rank";
-    else
+    else if (user.level < 25)
         user.rank = "S-Rank";
+    else
+        user.rank = "Monarch";
 }
 
 // Function to check if the user has enough XP to level up
@@ -77,7 +80,6 @@ void displayProfile(const UserProfile& user) {
     cout << "Name: " << user.name << endl;
     cout << "Weight: " << user.weight << " kg" << endl;
     cout << "Height: " << user.height << " m" << endl;
-    cout << "Fitness Level: " << user.fitnessLevel << endl;
     cout << "Rank: " << user.rank << endl;
     cout << "Level: " << user.level << " (XP: " << user.xp << ")" << endl;
     cout << "Daily Streak: " << user.dailyStreak << endl;
@@ -277,9 +279,86 @@ void loadProfile(UserProfile& user) {
         cout << "\nNo save file found." << endl;
     }
 }
+void initialAssessment(UserProfile& user) {
+    cout << "\n===== Initial Strength Assessment =====" << endl;
+    
+    cout << "Perform as many push-ups as you can: ";
+    cin >> user.pushUps;
+    while (cin.fail() || user.pushUps < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Invalid number. Enter a non-negative value: ";
+        cin >> user.pushUps;
+    }
+    
+    cout << "Perform as many pull-ups as you can: ";
+    cin >> user.pullUps;
+    while (cin.fail() || user.pullUps < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Invalid number. Enter a non-negative value: ";
+        cin >> user.pullUps;
+    }
+    
+    cout << "Perform as many squats as you can: ";
+    cin >> user.squats;
+    while (cin.fail() || user.squats < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Invalid number. Enter a non-negative value: ";
+        cin >> user.squats;
+    }
+    
+    cout << "Run and enter the distance covered (in km): ";
+    cin >> user.runningDistance;
+    while (cin.fail() || user.runningDistance < 0) {
+        cin.clear();
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cout << "Invalid distance. Enter a non-negative value: ";
+        cin >> user.runningDistance;
+    }
+    
+    // Determine initial rank based on performance
+    int totalScore = user.pushUps + (user.pullUps * 2) + user.squats + (user.runningDistance * 10);
+    
+    if (totalScore < 20) user.rank = "E";
+    else if (totalScore < 50) user.rank = "D";
+    else if (totalScore < 100) user.rank = "C";
+    else if (totalScore < 150) user.rank = "B";
+    else if (totalScore < 200) user.rank = "A";
+    else if (totalScore < 300) user.rank = "S";
+    else user.rank = "Monarch";
+    
+    cout << "\nBased on your assessment, your starting rank is: " << user.rank << "!\n";
+
+     // Initialize workout stats and XP system
+
+     user.xp = totalScore;
+    // user.level = 1;
+     user.dailyStreak = 0;
+     updateRank(user);
+}
+
+void showLoadingScreen() {
+    cout << "\nInitializing Tracker";
+    for (int i = 0; i < 5; i++) {  // Three dots animation
+        cout << ".";
+        cout.flush(); // Ensure dots appear in real-time
+        sleep_for(chrono::milliseconds(1000)); // Pause for 700ms
+    }
+    cout << "\nLoading Complete!\n";
+    sleep_for(chrono::milliseconds(1500)); // Short delay before showing the menu
+    cout << "\nUser detected\n";
+    sleep_for(chrono::milliseconds(2000));
+    cout << ("\n User isn't aware of its strength, initializing PROGRAM EXCIDIUM.\n\n");
+    sleep_for(chrono::milliseconds(2000));
+    cout <<("Connected to user , Initializing Assesment Test\n");
+    sleep_for(chrono::milliseconds(2000));
+}
 
 int main() {
     UserProfile user;
+    showLoadingScreen();
 
     // Initialize user profile with basic input
     cout << "Enter your name: ";
@@ -311,23 +390,17 @@ int main() {
     }
     cin.ignore(); // Clear newline left in input buffer
 
-    cout << "Enter your fitness level (Beginner/Intermediate/Advanced): ";
+    // i dont think we have any function of this , removing for the moment
+
+    /*cout << "Enter your fitness level (Beginner/Intermediate/Advanced): ";
     getline(cin, user.fitnessLevel);
     // Validate fitness level input
     while (user.fitnessLevel != "Beginner" && user.fitnessLevel != "Intermediate" && user.fitnessLevel != "Advanced") {
         cout << "Invalid fitness level. Please enter (Beginner/Intermediate/Advanced): ";
         getline(cin, user.fitnessLevel);
-    }
-
-    // Initialize workout stats and XP system
-    user.pushUps = 0;
-    user.pullUps = 0;
-    user.squats = 0;
-    user.runningDistance = 0.0;
-    user.xp = 0;
-    user.level = 1;
-    user.dailyStreak = 0;
-    updateRank(user);
+    }*/
+  
+    initialAssessment(user);
 
     // Main menu loop
     int option;
