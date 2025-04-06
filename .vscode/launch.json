@@ -1,7 +1,6 @@
 {
   "version": "0.2.0",
   "configurations": [
-    
     {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
@@ -9,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/sahaj/Excidium/Excidium/EXCIDIUM",
-      "program": "c:/Users/sahaj/Excidium/Excidium/EXCIDIUM/build/Debug/outDebug",
+      "cwd": "c:/Users/sahaj/Excidium/Excidium/EXCIDIUM/Cpp",
+      "program": "c:/Users/sahaj/Excidium/Excidium/EXCIDIUM/Cpp/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
