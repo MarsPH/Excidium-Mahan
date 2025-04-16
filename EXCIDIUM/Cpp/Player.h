@@ -1,0 +1,44 @@
+#ifndef PLAYER_H
+#define PLAYER_H
+
+#include <string>
+
+struct Stats {
+    int strength = 0;
+    int stamina = 0;
+    int endurance = 0;
+
+    int total() const {
+        return strength + stamina + endurance;
+    }
+};
+
+class Player {
+private:
+    std::string name;
+    std::string rank;
+    Stats stats;
+    int age;
+    double weight;
+
+public:
+    // Constructors
+    Player();
+    Player(std::string name,int age,double weight);
+
+    // Getters
+    std::string getName() const;
+    int getAge() const;
+    double getWeight() const;
+    std::string getRank() const;
+    Stats getStats() const;
+
+    // Setters
+    void setStats(int strength, int stamina, int endurance);
+    void setRank(std::string newRank);
+
+    // Display
+    void showStats() const;
+};
+
+#endif
