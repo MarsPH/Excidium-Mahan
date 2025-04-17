@@ -4,6 +4,7 @@
 #include <thread>              // for sleep/delay between lines
 #include "Player.h"            // our custom Player class
 #include "RankingSystem.h"
+#include "Quest.h"
 
 
 // Mahan this just makes it look cool when the system starts
@@ -63,6 +64,9 @@ int main() {
     int age;
     double weight;
     RankTree rankTree;
+    std::vector<Quest> dailyQuests; // Broo, this will hold today's system quests
+    bool questsGenerated = false;
+
 
 
     std::cout << "Enter your name, Player: ";
@@ -124,13 +128,65 @@ int main() {
                 break;
 
             case 2:
-                // player.generateQuests();  // coming soon
-                break;
+          
+    if (!questsGenerated) {
+        dailyQuests.clear(); // wipe any leftovers
+        int numQuests = 3;
+        for (int i = 0; i < numQuests; ++i) {
+            Quest q = Quest::generateRandom();
+            dailyQuests.push_back(q);
+        }
+        std::cout << "\n>> Daily Quests Generated:\n";
+        for (int i = 0; i < dailyQuests.size(); ++i) {
+            dailyQuests[i].display(i + 1);
+        }
+        questsGenerated = true;
+    } else {
+        std::cout << "\n>> You already have today's quests, soldier.\n";
+    }
+  
 
-            case 3:
-                // player.completeQuest();   // WIP
+            break;
+            case 3:{
+            if (!questsGenerated || dailyQuests.empty()) {
+                std::cout << "\n>> No quests to complete. Generate them first.\n";
                 break;
-
+            }
+        
+            std::cout << "\n>> Your Quests:\n";
+            for (int i = 0; i < dailyQuests.size(); ++i) {
+                dailyQuests[i].display(i + 1);
+            }
+        
+            std::cout << "Choose a quest to complete (1-" << dailyQuests.size() << "): ";
+            int qChoice;
+            std::cin >> qChoice;
+        
+            if (qChoice < 1 || qChoice > dailyQuests.size()) {
+                std::cout << ">> Invalid quest number.\n";
+                break;
+            }
+        
+            Quest& q = dailyQuests[qChoice - 1];
+        
+            if (q.isCompleted()) {
+                std::cout << ">> You've already done this one, bro.\n";
+                break;
+            }
+        
+            q.markCompleted();
+            float roll = static_cast<float>(rand()) / RAND_MAX;
+        
+            if (roll < q.getSuccessChance()) {
+                std::cout << ">> Success! " << q.getStatType() << " increased by +" << q.getRewardAmount() << "!\n";
+               //player.incres
+            } else {
+                std::cout << ">> You tried. The System shows no mercy today.\n";
+            }
+        
+            break;
+        
+        }
             case 4:
                 player.evaluateRank(rankTree);
                 break;
@@ -148,7 +204,7 @@ int main() {
                 return 0;
 
             default:
-                std::cout << "Invalid input, Hunter.\n";  // if Mahan types wrong number
+                std::cout << "Invalid input, Hunter.\n";  // if user types wrong number
         }
     }
 

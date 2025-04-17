@@ -63,3 +63,14 @@ void Player::evaluateRank(const RankTree& tree) {
     std::cout << "\n>> Rank Evaluation Complete! You are ranked: " << rank << "\n";
 }
 
+void Player::updateStats(std::string statType, int amount) {
+     if (statType == "strength") 
+     {
+        stats.strength = std::min(stats.strength + amount, 100);
+     }
+else if (statType == "endurance") {stats.endurance = std::min(stats.endurance + amount, 100);}
+
+else if (statType == "stamina") {stats.stamina = std::min(stats.stamina + amount, 100);}}
+
+
+

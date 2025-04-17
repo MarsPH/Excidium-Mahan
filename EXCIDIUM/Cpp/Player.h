@@ -43,6 +43,8 @@ public:
     // Display
     void showStats() const;
     void evaluateRank(const RankTree& tree);
+    //update
+    void updateStats(std::string statType , int amount);
 };
 
 #endif
