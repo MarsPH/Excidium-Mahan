@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "RankingSystem.h"
 #include <iostream>
 
 Player::Player() {
@@ -54,3 +55,11 @@ void Player::showStats() const {
     std::cout << "Stamina: " << stats.stamina << "\n";
     std::cout << "Endurance: " << stats.endurance << "\n";
 }
+
+void Player::evaluateRank(const RankTree& tree) {
+    int totalStats = stats.strength + stats.stamina + stats.endurance;
+  std::cout << "Total stats: " << totalStats;
+    rank = tree.evaluate(totalStats);
+    std::cout << "\n>> Rank Evaluation Complete! You are ranked: " << rank << "\n";
+}
+

@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <string>
+#include "RankingSystem.h"  
 
 struct Stats {
     int strength = 0;
@@ -12,6 +13,8 @@ struct Stats {
         return strength + stamina + endurance;
     }
 };
+
+class RankTree; 
 
 class Player {
 private:
@@ -39,6 +42,7 @@ public:
 
     // Display
     void showStats() const;
+    void evaluateRank(const RankTree& tree);
 };
 
 #endif
