@@ -5,34 +5,67 @@
 #include "Player.h"            // our custom Player class
 #include "RankingSystem.h"
 #include "Quest.h"
+#include <cstdlib>
+#include <fstream>
+using namespace std::chrono_literals;
+void typeEffect(const std::string& text, int delayMs = 50) {
+    for (char c : text) {
+        std::cout << c << std::flush;
+        std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
+    }
+}
+void glitchText(const std::string& text, int repeat = 3, int delay = 50) {
+    std::string glitchChars = "#$%&@!*^~";
+    for (int i = 0; i < repeat; ++i) {
+        for (char c : text) {
+            if (rand() % 4 == 0) {
+                std::cout << glitchChars[rand() % glitchChars.size()];
+            } else {
+                std::cout << c;
+            }
+            std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+        }
+        std::cout << "\r"; // overwrite line
+        std::this_thread::sleep_for(std::chrono::milliseconds(80));
+    }
+    std::cout << text << "\n"; // Final clean line
+}
 
-
-// Mahan this just makes it look cool when the system starts
 void systemBootSequence() {
-    using namespace std::chrono_literals;
+   
+    system("CLS"); // Clear console at start
 
-    std::cout << "\nBooting the System...\n";
-    std::this_thread::sleep_for(2s);  // wait 2 seconds for drama
+    typeEffect("Establishing Neural Link...\n", 40);
+    std::this_thread::sleep_for(1s);
 
-    std::cout << "\nSystem Initializing\n";
+    typeEffect("Synchronizing Body Metrics...\n", 40);
+    std::this_thread::sleep_for(2s);
+
+    typeEffect("Calibrating Muscle Fibers...\n", 40);
+    std::this_thread::sleep_for(1s);
+
+    typeEffect("\n>> SYSTEM CORE BOOTING\n\n", 30);
+    std::this_thread::sleep_for(2s);
+
     for (int i = 3; i > 0; --i) {
-        std::cout << i << "...\n";
-        std::this_thread::sleep_for(700ms);  // countdown timer
+        std::cout << "Initializing in: " << i << "...\n";
+        std::this_thread::sleep_for(700ms);
     }
 
     std::cout << "Reinitializing";
     for (int i = 0; i < 3; ++i) {
         std::cout << ".";
-        std::this_thread::sleep_for(500ms);  // dot loading effect
+        std::this_thread::sleep_for(400ms);
     }
 
     std::cout << "\n\n";
-    std::cout << "\nPlayer Detected...\n";
-    std::this_thread::sleep_for(1s);
-    std::cout << "Connecting to Player\n";
-    std::this_thread::sleep_for(500ms);
+    typeEffect(">> PLAYER PRESENCE DETECTED...\n", 40);
+    std::this_thread::sleep_for(600ms);
+    typeEffect(">> Connecting Neural Pathways...\n", 40);
+    std::this_thread::sleep_for(600ms);
+    typeEffect(">> SYSTEM READY.\n\n", 40);
+    std::this_thread::sleep_for(700ms);
 }
-
 
 // bro these functions convert real-life numbers to in-game stats (0–100 scale)
 
@@ -54,8 +87,30 @@ int convertRunToStamina(float minutes) {
     return std::max(std::min(value, 100), 0);  // clamp between 0 and 100
 }
 
-
 int main() {
+    std::string name="";
+    int age=0;
+    double weight=0;
+    RankTree rankTree;
+    std::vector<Quest> dailyQuests; // Broo, this will hold today's system quests
+    bool questsGenerated = false;
+    Player player(name, age, weight);
+std::ifstream saveCheck("save.txt");
+
+    if (saveCheck.is_open()) {
+    
+    player.loadFromFile("save.txt");
+
+    // cinematic welcome
+    typeEffect(">> Save File Detected.\n", 40);
+    typeEffect(">> Restoring Player State...\n", 40);
+    std::this_thread::sleep_for(std::chrono::seconds(1));
+
+    // You may want to re-evaluate rank just in case
+    player.evaluateRank(rankTree);
+    }else{
+     std:: cout << "No Past memories Found \n establishing new connection";
+     std::this_thread::sleep_for(1s);
     // just a dramatic intro screen
     systemBootSequence();  
 
@@ -81,6 +136,25 @@ int main() {
     // we pass the name, age, and weight into our Player object
     Player player(name, age, weight);
 
+    std ::cout << "Welcome, " << name << "!\n" << "Physical Aptitude will begin Shortly" ;
+    std::this_thread::sleep_for(2s);
+    system("CLS");
+std::this_thread::sleep_for(500ms);
+
+typeEffect(">>> SYSTEM DIAGNOSTIC ENGAGED <<<\n\n", 40);
+std::this_thread::sleep_for(600ms);
+
+typeEffect("To evolve, your limits must first be exposed.\n", 50);
+std::this_thread::sleep_for(1000ms);
+
+typeEffect("Physical aptitude will now be assessed.\n", 40);
+std::this_thread::sleep_for(1000ms);
+
+typeEffect("\n>> Begin Assessment Protocol.\n", 35);
+std::this_thread::sleep_for(1000ms);
+
+system("CLS"); // Clean start for the questions
+
     // ====== ASSESSMENT TEST SECTION ======
     // Mahan this is where the user shows their grind IRL
     int pushups, seconds;
@@ -90,14 +164,22 @@ int main() {
 
     std::cout << "\nAssessment Test Initiated...\n";
 
-    std::cout << "Enter your push-up count (Strength): ";
+    std::cout << "Enter your push-up count: ";
+    std::cout << "Average person can do 20 pushups \n ";
     std::cin >> pushups;
 
-    std::cout << "Enter your 5km run time in minutes (Stamina): ";
+    std::cout << "Enter your 5km run time in minutes : ";
+    std::cout << "Average person can run 5km in 33 minutes \n ";
     std::cin >> minutes;
 
-    std::cout << "How long can you Plank (in seconds)? (Endurance): ";
+    std::cout << "How long can you Plank (in seconds)?: ";
+    std::cout << "Average person can plank for 90 seconds \n ";
     std::cin >> seconds;
+    std::cout << "Can you Use Telekenisis \n";
+   std:: string temp;
+    std::cin >> temp;
+    
+
 
     // Convert raw inputs to game stats
     strength  = convertPushupsToStrength(pushups);
@@ -106,9 +188,42 @@ int main() {
 
     // apply those stats to our player
     player.setStats(strength, stamina, endurance);
-
+    player.evaluateRank(rankTree);
+    player.saveToFile("save.txt");
+    system("CLS");
+    std::this_thread::sleep_for(600ms);
+    
+    typeEffect(">>> SYSTEM INTERFACE UNLOCKED <<<\n\n", 40);
+    std::this_thread::sleep_for(700ms);
+    
+    typeEffect("Welcome to the System, Hunter.\n", 40);
+    std::this_thread::sleep_for(800ms);
+    
+    typeEffect("Your strength, stamina, and endurance have been logged.\n", 40);
+    std::this_thread::sleep_for(800ms);
+    
+    typeEffect("You have been assigned a Rank.\n", 40);
+    std::this_thread::sleep_for(600ms);
+    
+    typeEffect("From this point forward, your path will be forged through Quests.\n", 40);
+    std::this_thread::sleep_for(900ms);
+    
+    typeEffect("Each Quest challenges your limits.\n", 40);
+    std::this_thread::sleep_for(600ms);
+    
+    typeEffect("Complete them... and the System *may* reward you.\n", 50);
+    std::this_thread::sleep_for(900ms);
+    
+    typeEffect("\nTrack your stats. Push your limits. Evolve.\n", 50);
+    std::this_thread::sleep_for(1000ms);
+    
+    typeEffect("\n>> Main Interface Activating...\n", 35);
+    std::this_thread::sleep_for(1000ms);
+    }
+    system("CLS");
     // MAIN MENU LOOP (after assessment is done)
     // Mahan this is the actual System UI the player interacts with
+    
     int choice;
     while (true) {
         std::cout << "\n===== SYSTEM MENU =====\n";
@@ -118,6 +233,7 @@ int main() {
         std::cout << "4. Evaluate Rank\n";
         std::cout << "5. Save Progress\n";
         std::cout << "6. Load Progress\n";
+        std::cout << "7. New Begininng\n";
         std::cout << "0. Exit\n";
         std::cout << "Enter your choice: ";
         std::cin >> choice;
@@ -179,7 +295,7 @@ int main() {
         
             if (roll < q.getSuccessChance()) {
                 std::cout << ">> Success! " << q.getStatType() << " increased by +" << q.getRewardAmount() << "!\n";
-               //player.incres
+                 player.updateStats(q.getStatType(),q.getRewardAmount());
             } else {
                 std::cout << ">> You tried. The System shows no mercy today.\n";
             }
@@ -189,15 +305,45 @@ int main() {
         }
             case 4:
                 player.evaluateRank(rankTree);
+              //  std::cout <<"\n Stats : \n" << player.getStats() << "\n";
+                std::cout << "\n>> Rank Evaluation Complete! You are ranked: " << player.getRank() << "\n";
                 break;
             
             case 5:
-                // player.saveToFile("data.txt"); // when save/load is added
-                break;
+         
+            player.saveToFile("save.txt");
+            break;
+        
 
             case 6:
-                // player.loadFromFile("data.txt");
+                player.loadFromFile("save.txt");
                 break;
+                case 7: {
+                    std::cout << "\n>> This will delete all saved progress.\n";
+                    std::cout << "Are you sure? (Y/N): ";
+                    char confirm;
+                    std::cin >> confirm;
+                
+                    if (confirm == 'Y' || confirm == 'y') {
+                        if (remove("save.txt") == 0) {
+                            std::cout << ">> Save file deleted successfully.\n";
+                            std::cout << ">> Rebooting System...\n";
+                            std::this_thread::sleep_for(std::chrono::seconds(2));
+                            system("CLS");
+                
+                            // 🔄 Restart program cleanly
+                            main();  // 💀 Yes, we are calling main() again.
+                            return 0; // to avoid weird fallthrough
+                        } else {
+                            std::cout << ">> Error: Could not delete save file.\n";
+                        }
+                    } else {
+                        std::cout << ">> Abort. Save file is untouched.\n";
+                    }
+                
+                    break;
+                }
+                
 
             case 0:
                 std::cout << "System Offline.\n";  // exit the program
