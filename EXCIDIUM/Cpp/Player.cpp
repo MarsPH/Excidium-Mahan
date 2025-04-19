@@ -94,7 +94,7 @@ void Player::saveToFile(const std::string& filename) const {
 void Player::loadFromFile(const std::string& filename) {
     std::ifstream file(filename);
     if (!file) {
-        std::cout << ">> Error: Couldn't open file for loading.\n";
+        std::cout << ">>Error: No Files Found\n";
         return;
     }
 
