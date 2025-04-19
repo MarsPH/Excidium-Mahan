@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "RankingSystem.h"
 #include <iostream>
+#include <fstream> 
 
 Player::Player() {
     name = "Unknown";
@@ -58,9 +59,9 @@ void Player::showStats() const {
 
 void Player::evaluateRank(const RankTree& tree) {
     int totalStats = stats.strength + stats.stamina + stats.endurance;
-  std::cout << "Total stats: " << totalStats;
+  //std::cout << "Total stats: " << totalStats;
     rank = tree.evaluate(totalStats);
-    std::cout << "\n>> Rank Evaluation Complete! You are ranked: " << rank << "\n";
+   
 }
 
 void Player::updateStats(std::string statType, int amount) {
@@ -71,6 +72,41 @@ void Player::updateStats(std::string statType, int amount) {
 else if (statType == "endurance") {stats.endurance = std::min(stats.endurance + amount, 100);}
 
 else if (statType == "stamina") {stats.stamina = std::min(stats.stamina + amount, 100);}}
+void Player::saveToFile(const std::string& filename) const {
+    std::ofstream file(filename);
+    if (!file) {
+        std::cout << ">> Error: Couldn't open file for saving.\n";
+        return;
+    }
+
+    file << name << "\n"
+         << age << "\n"
+         << weight << "\n"
+         << stats.strength << "\n"
+         << stats.stamina << "\n"
+         << stats.endurance << "\n"
+         << rank << "\n";
+
+    file.close();
+    std::cout << ">> Progress saved to " << filename << "\n";
+}
+
+void Player::loadFromFile(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file) {
+        std::cout << ">> Error: Couldn't open file for loading.\n";
+        return;
+    }
+
+    std::getline(file, name);
+    file >> age >> weight;
+    file >> stats.strength >> stats.stamina >> stats.endurance;
+    file.ignore(); // skip newline after last int
+    std::getline(file, rank);
+
+    file.close();
+    std::cout << ">> Progress loaded from " << filename << "\n";
+}
 
 
 

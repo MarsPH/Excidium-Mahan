@@ -45,6 +45,10 @@ public:
     void evaluateRank(const RankTree& tree);
     //update
     void updateStats(std::string statType , int amount);
+
+    void saveToFile(const std::string& filename) const;
+void loadFromFile(const std::string& filename);
+
 };
 
 #endif

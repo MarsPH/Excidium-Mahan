@@ -106,6 +106,8 @@ int main() {
 
     // apply those stats to our player
     player.setStats(strength, stamina, endurance);
+    player.evaluateRank(rankTree);
+    player.saveToFile("save.txt");
 
     // MAIN MENU LOOP (after assessment is done)
     // Mahan this is the actual System UI the player interacts with
@@ -179,7 +181,7 @@ int main() {
         
             if (roll < q.getSuccessChance()) {
                 std::cout << ">> Success! " << q.getStatType() << " increased by +" << q.getRewardAmount() << "!\n";
-               //player.incres
+                 player.updateStats(q.getStatType(),q.getRewardAmount());
             } else {
                 std::cout << ">> You tried. The System shows no mercy today.\n";
             }
@@ -189,14 +191,18 @@ int main() {
         }
             case 4:
                 player.evaluateRank(rankTree);
+              //  std::cout <<"\n Stats : \n" << player.getStats() << "\n";
+                std::cout << "\n>> Rank Evaluation Complete! You are ranked: " << player.getRank() << "\n";
                 break;
             
             case 5:
-                // player.saveToFile("data.txt"); // when save/load is added
-                break;
+         
+            player.saveToFile("save.txt");
+            break;
+        
 
             case 6:
-                // player.loadFromFile("data.txt");
+                player.loadFromFile("save.txt");
                 break;
 
             case 0:
