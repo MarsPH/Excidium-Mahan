@@ -131,11 +131,13 @@
     <ClCompile Include="Cpp\Player.cpp" />
     <ClCompile Include="Cpp\Quest.cpp" />
     <ClCompile Include="Cpp\RankingSystem.cpp" />
+    <ClCompile Include="TimedQuest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cpp\Player.h" />
     <ClInclude Include="Cpp\Quest.H" />
     <ClInclude Include="Cpp\RankingSystem.h" />
+    <ClInclude Include="TimedQuest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
