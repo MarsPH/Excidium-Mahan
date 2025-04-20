@@ -10,6 +10,7 @@
 #include <queue>
 #include <conio.h>
 #include <memory>
+#include "../ComboQuest.h"
 #include "../TimedQuest.h"
 extern Player player;
 using namespace std::chrono_literals;
@@ -401,7 +402,8 @@ else{
 		std::cout << "5. Save Progress\n";
 		std::cout << "6. Load Progress\n";
 		std::cout << "7. New Begininng\n";
-		std::cout << "8. Timed Quest System\n";
+		std::cout << "8. Timed Quest System\n"; //queue
+		std::cout << "9. Try Combo Quest\n";// circular linked list
 		std::cout << "0. Exit\n";
 		std::cout << "Enter your choice: ";
 		std::cin >> choice;
@@ -520,6 +522,42 @@ else{
 		case 8:
 			showTimedQuestMenu();
 			break;
+		case 9: {
+			// ComboQuest
+			auto q1 = std::make_shared<ComboQuest>(
+				std::vector<std::string>{"Burpees x20", "Plank 2min"}, "stamina", 0.7f, 5);
+			auto q2 = std::make_shared<ComboQuest>(
+				std::vector<std::string>{"Push-ups x30", "Dips x20"}, "strength", 0.6f, 8);
+			auto q3 = std::make_shared<ComboQuest>(
+				std::vector<std::string>{"Wall Sit 2min", "Slow Lunges x40"}, "endurance", 0.8f, 10);
+
+			// Linking them into a circular list
+			q1->setNext(q2);
+			q2->setNext(q3);
+			q3->setNext(q1);
+
+			// Traverse and simulate
+			auto current = q1;
+			for (int i = 0; i < 6; ++i) {  // Loop twice through the circle
+				current->display(i + 1);
+				std::cout << "Accept this combo part? (Y/N): ";
+				char input;
+				std::cin >> input;
+				if (input == 'Y' || input == 'y') {
+					float roll = static_cast<float>(rand()) / RAND_MAX;
+					if (roll < current->getSuccessChance()) {
+						std::cout << ">> Success! " << current->getStatType()
+							<< " + " << current->getRewardAmount() << "\n";
+						player.updateStats(current->getStatType(), current->getRewardAmount());
+					}
+					else {
+						std::cout << ">> Failed. No reward.\n";
+					}
+				}
+				current = current->getNext();
+			}
+			break;
+		}
 
 		case 0:
 			std::cout << "System Offline.\n";  // exit the program
