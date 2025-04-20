@@ -15,8 +15,8 @@ void RankTree :: buildDefaultRanks() {
     insert("C", 90);
     insert("B", 150);
     insert("A", 200);
-    insert("S", 240);
-    insert("Monarch", 290);
+    insert("S", 250);
+    insert("Monarch", 300);
 }
 
 // Add new rank into tree

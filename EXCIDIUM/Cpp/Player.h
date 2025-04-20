@@ -23,6 +23,7 @@ private:
     Stats stats;
     int age;
     double weight;
+    std::string title;
 
 public:
     // Constructors
@@ -35,6 +36,7 @@ public:
     double getWeight() const;
     std::string getRank() const;
     Stats getStats() const;
+    
 
     // Setters
     void setStats(int strength, int stamina, int endurance);
@@ -47,8 +49,9 @@ public:
     void updateStats(std::string statType , int amount);
 
     void saveToFile(const std::string& filename) const;
-void loadFromFile(const std::string& filename);
+    void loadFromFile(const std::string& filename);
 
+  
 };
 
 #endif

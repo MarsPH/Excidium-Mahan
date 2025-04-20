@@ -54,7 +54,7 @@ Quest Quest::generateRandom() {
 
     std::vector<std::string> strengthPool = {
         "Do 20 push-ups", "15 pull-ups", "20 tricep dips",
-        "Shoulder press (15 reps)", "10 push-up holds", "Diamond push-ups"
+        "Shoulder press (15 reps)", "10 push-up holds", "Diamond 5 push-ups"
     };
 
     std::vector<std::string> endurancePool = {

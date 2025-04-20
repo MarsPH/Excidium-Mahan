@@ -16,8 +16,8 @@ namespace {
         {"stamina", {"Sprint 400m x5", "Plank 4 min", "Jump squats 50", "Mountain climbers x100"}}
     };
 
-    const int minTimeLimit{ 480 };
-    const int maxTimeLimit{ 660};
+    const int minTimeLimit{ 60 };
+    const int maxTimeLimit{ 180 };
 
     int getRandomInt(int min, int max)
     {
@@ -38,9 +38,7 @@ void TimedQuest::start() {
 }
 
 void TimedQuest::tick() {
-  
-
-    
+    // No need to do anything. We calculate remaining time dynamically.
 }
 
 

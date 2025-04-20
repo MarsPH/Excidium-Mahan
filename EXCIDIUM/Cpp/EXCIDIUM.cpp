@@ -329,6 +329,70 @@ int main() {
 
 	int choice;
 	while (true) {
+		if (player.getStats().strength == 100 &&
+		player.getStats().stamina == 100 &&
+		player.getStats().endurance == 100) {
+	
+		system("CLS");
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		
+		typeEffect(">>> SYSTEM ALERT <<<\n", 60);
+		std::this_thread::sleep_for(std::chrono::milliseconds(600));
+		typeEffect(">> ALL PARAMETERS MAXED\n", 50);
+		std::this_thread::sleep_for(std::chrono::milliseconds(800));
+		
+		typeEffect(">> NEURAL INTEGRITY: UNSTABLE\n", 40);
+		std::this_thread::sleep_for(std::chrono::milliseconds(700));
+		typeEffect(">> CORE LIMIT EXCEEDED...\n", 40);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		
+		typeEffect("\n>> PHYSICAL FORM RESTRUCTURING INITIATED\n", 60);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+		
+		typeEffect(">> SYSTEM CAN NO LONGER CONTAIN THE USER...\n", 60);
+		std::this_thread::sleep_for(std::chrono::milliseconds(800));
+		glitchText(">>> R̴E̸W̶R̵I̴T̷I̴N̵G̵ ̴S̴Y̷S̷T̵E̴M̷ ̷P̴R̵O̷T̴O̷C̸O̶L̴S̴...\n", 1, 10);
+		
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		typeEffect("\n>>> EVOLUTION: FINAL STAGE REACHED <<<\n", 70);
+		std::this_thread::sleep_for(std::chrono::milliseconds(800));
+	
+		typeEffect(">> TITLE GRANTED: \"Monarch of Calisthenics\"\n", 60);
+		std::this_thread::sleep_for(std::chrono::milliseconds(600));
+		
+		typeEffect(">> STATUS: UNCHAINED FROM SYSTEM LIMITS\n", 60);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		
+		typeEffect("\n...The System once judged you.\n", 70);
+		std::this_thread::sleep_for(std::chrono::milliseconds(700));
+		typeEffect("...Now it worships you.\n", 70);
+		std::this_thread::sleep_for(std::chrono::milliseconds(900));
+		
+		glitchText(">>> RANK OVERRIDE: MONARCH\n", 1, 30);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+		
+		typeEffect("\n>> You have become what others train lifetimes to touch.\n", 60);
+		typeEffect(">> You no longer chase progress — you **are** progress.\n", 70);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+		typeEffect(">> You have reached the end...\n", 80);
+std::this_thread::sleep_for(std::chrono::milliseconds(1200));
+
+typeEffect(">> ...and then stepped past it.\n", 90);
+std::this_thread::sleep_for(std::chrono::milliseconds(1300));
+
+typeEffect("\n\n");
+typeEffect("“You didn’t beat the system — you became the reason it exists.”\n", 120);
+std::this_thread::sleep_for(std::chrono::milliseconds(1300));
+		typeEffect("\n>> SYSTEM: SHUTTING DOWN\n", 80);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1500));
+		
+		typeEffect("\n>>> GOODBYE, MONARCH. >>> R̴E̸W̶R̵I̴T̷I̴N̵G̵ ̴S̴Y̷S̷T̵E̴M̷ ̷P̴R̵O̷T̴O̷C̸O̶L̴S̴...\n\n", 100);
+		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+	
+		exit(0); // 👑 Exit like a Monarch
+	}
+else{	
+	
 		std::cout << "\n===== SYSTEM MENU =====\n";
 		std::cout << "1. Show Stats\n";
 		std::cout << "2. Generate Quests\n";
@@ -401,6 +465,8 @@ int main() {
 			if (roll < q.getSuccessChance()) {
 				std::cout << ">> Success! " << q.getStatType() << " increased by +" << q.getRewardAmount() << "!\n";
 				player.updateStats(q.getStatType(), q.getRewardAmount());
+
+				std::this_thread::sleep_for(3s);
 			}
 			else {
 				std::cout << ">> You tried. The System shows no mercy today.\n";
@@ -460,8 +526,8 @@ int main() {
 			return 0;
 
 		default:
-			std::cout << "Invalid input, Hunter.\n";  // if user types wrong number
+			std::cout << "Invalid input,.\n";  // if user types wrong number
 		}
-	}
+	}}
 
 }

@@ -8,6 +8,7 @@ Player::Player() {
     age = 0;
     weight=0;
     rank = "Unranked";
+
 }
 
 Player::Player(std::string name,int age, double weight){
@@ -15,6 +16,16 @@ Player::Player(std::string name,int age, double weight){
     rank = "Unranked";
     this ->age = age;
     this->weight = weight;
+}
+std::string getRankTitle(const std::string& rank) {
+    if (rank == "E") return "Unawakened";
+    if (rank == "D") return "Street Fighter";
+    if (rank == "C") return "Contender";
+    if (rank == "B") return "Elite";
+    if (rank == "A") return "Gravity Defier";
+    if (rank == "S") return "Calisthenic Phantom";
+    if (rank == "Monarch") return "Monarch of Calisthenics";
+    return "Unranked";
 }
 
 std::string Player::getName() const {
@@ -36,6 +47,8 @@ Stats Player::getStats() const {
     return stats;
 }
 
+
+
 void Player::setStats(int strength, int stamina, int endurance) {
     stats.strength = strength;
     stats.stamina = stamina;
@@ -52,16 +65,20 @@ void Player::showStats() const {
     std::cout << "Age: " << age << "\n";
     std::cout << "Weight: " << weight <<" kg"<< "\n";
     std::cout << "Rank: " << rank << "\n";
+    std :: cout <<"Title:  " << title << "\n";
+    std::cout << "==========================\n";
     std::cout << "Strength: " << stats.strength << "\n";
     std::cout << "Stamina: " << stats.stamina << "\n";
     std::cout << "Endurance: " << stats.endurance << "\n";
 }
 
 void Player::evaluateRank(const RankTree& tree) {
+   
+    
     int totalStats = stats.strength + stats.stamina + stats.endurance;
   //std::cout << "Total stats: " << totalStats;
     rank = tree.evaluate(totalStats);
-   
+   title = getRankTitle(rank);
 }
 
 void Player::updateStats(std::string statType, int amount) {
@@ -86,6 +103,7 @@ void Player::saveToFile(const std::string& filename) const {
          << stats.stamina << "\n"
          << stats.endurance << "\n"
          << rank << "\n";
+        // << title
 
     file.close();
     std::cout << ">> Progress saved to " << filename << "\n";
@@ -107,6 +125,9 @@ void Player::loadFromFile(const std::string& filename) {
     file.close();
     std::cout << ">> Progress loaded from " << filename << "\n";
 }
+
+
+ 
 
 
 
