@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ComboQuest.cpp" />
     <ClCompile Include="Cpp\EXCIDIUM.cpp" />
     <ClCompile Include="Cpp\Player.cpp" />
     <ClCompile Include="Cpp\Quest.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="TimedQuest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ComboQuest.h" />
     <ClInclude Include="Cpp\Player.h" />
     <ClInclude Include="Cpp\Quest.H" />
     <ClInclude Include="Cpp\RankingSystem.h" />
