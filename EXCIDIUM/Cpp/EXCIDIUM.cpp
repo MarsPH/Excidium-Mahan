@@ -14,12 +14,16 @@
 #include "../TimedQuest.h"
 extern Player player;
 using namespace std::chrono_literals;
+
+
+// this is a helper function to get cool animation while doing cout
 void typeEffect(const std::string& text, int delayMs = 50) {
 	for (char c : text) {
 		std::cout << c << std::flush;
 		std::this_thread::sleep_for(std::chrono::milliseconds(delayMs));
 	}
 }
+// this is also the same thing
 void glitchText(const std::string& text, int repeat = 3, int delay = 50) {
 	std::string glitchChars = "#$%&@!*^~";
 	for (int i = 0; i < repeat; ++i) {
@@ -41,7 +45,7 @@ void glitchText(const std::string& text, int repeat = 3, int delay = 50) {
 void systemBootSequence() {
 
 	system("CLS"); // Clear console at start
-
+//this is a systemBoot dramting intro , ignore this 
 	typeEffect("Establishing Neural Link...\n", 40);
 	std::this_thread::sleep_for(1s);
 
@@ -134,12 +138,12 @@ void monitorTimedQuests() {
 					timedQuestQueue.pop();
 					auto newQuest = std::make_shared<TimedQuest>(TimedQuest::generateRandom());
 					timedQuestQueue.push(newQuest);
-					std::this_thread::sleep_for(std::chrono::seconds(2));
+					std::this_thread::sleep_for(2s);
 					break;
 				}
 			}
 		}
-
+        // here it checks if the quest is expired or not
 		if (currentQuest->isExpired()) {
 			std::cout << "\n>> This quest has expired and will be removed.\n";
 			timedQuestQueue.pop();
@@ -149,7 +153,7 @@ void monitorTimedQuests() {
 
 	std::cout << "\nAll timed quests completed or expired.\n";
 }
-
+// this is a menu for timed quests
 void showTimedQuestMenu() {
 	int choice;
 	while (true) {
@@ -191,9 +195,10 @@ void showTimedQuestMenu() {
 	}
 }
 
-
 Player player("", 0, 0);
+
 int main() {
+	// bunch of variables
 	std::string name = "";
 	int age = 0;
 	double weight = 0;
@@ -211,7 +216,7 @@ int main() {
 		typeEffect(">> Restoring Player State...\n", 40);
 		std::this_thread::sleep_for(std::chrono::seconds(1));
 
-		// You may want to re-evaluate rank just in case
+		// if you want to re-evaluate rank just in case
 		player.evaluateRank(rankTree);
 	}
 	else {
@@ -327,15 +332,19 @@ int main() {
 		std::this_thread::sleep_for(1000ms);
 	}
 	system("CLS");
+	player.loadFromFile("save.txt"); // this  should ensure that the player's progress is stored correctly
+	player.evaluateRank(rankTree);
 	// MAIN MENU LOOP (after assessment is done)
 	// Mahan this is the actual System UI the player interacts with
 
 	int choice;
+	// in the loop it always keep on checking if player stats reached max so it can play end sequence
 	while (true) {
 		if (player.getStats().strength == 100 &&
 		player.getStats().stamina == 100 &&
 		player.getStats().endurance == 100) {
 	
+			// this is the end sequence you can ignore itt
 		system("CLS");
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 		
@@ -392,10 +401,11 @@ std::this_thread::sleep_for(std::chrono::milliseconds(1300));
 		typeEffect("\n>>> GOODBYE, MONARCH. >>> R̴E̸W̶R̵I̴T̷I̴N̵G̵ ̴S̴Y̷S̷T̵E̴M̷ ̷P̴R̵O̷T̴O̷C̸O̶L̴S̴...\n\n", 100);
 		std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 	
-		exit(0); // 👑 Exit like a Monarch
+		exit(0); // 👑 Exit  
+		// i dont know if we can add emoji in comments or no , but still  here they are
 	}
 else{	
-	
+	  // actual main menu
 		std::cout << "\n===== SYSTEM MENU =====\n";
 		std::cout << "1. Show Stats\n";
 		std::cout << "2. Generate Quests\n";
@@ -416,7 +426,7 @@ else{
 			break;
 
 		case 2:
-
+             // quest generator works with quest class
 			if (!questsGenerated) {
 				dailyQuests.clear(); // wipe any leftovers
 				int numQuests = 3;
@@ -436,6 +446,7 @@ else{
 
 
 			break;
+			// you can complete the quests here ,
 		case 3: {
 			if (!questsGenerated || dailyQuests.empty()) {
 				std::cout << "\n>> No quests to complete. Generate them first.\n";
@@ -486,15 +497,18 @@ else{
 			break;
 
 		case 5:
-
+ // basica,ly a save file
 			player.saveToFile("save.txt");
 			break;
 
 
 		case 6:
+		// basically a load file
 			player.loadFromFile("save.txt");
 			break;
 		case 7: {
+
+			// this is fun part , you can restart app inside the app and delte your progress
 			std::cout << "\n>> This will delete all saved progress.\n";
 			std::cout << "Are you sure? (Y/N): ";
 			char confirm;
@@ -508,8 +522,8 @@ else{
 					system("CLS");
 
 					// 🔄 Restart program cleanly
-					main();  // 💀 Yes, we are calling main() again.
-					return 0; // to avoid weird fallthrough
+					main();  // 💀 Yes, we  calling main() again. could have resulted in endless recursions i guess
+					return 0; 
 				}
 				else {
 					std::cout << ">> Error: Could not delete save file.\n";

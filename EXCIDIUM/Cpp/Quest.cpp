@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <ctime>
 
+// default constructor — safe fallback values
 Quest::Quest() {
     completed = false;
     statType = "unknown";
@@ -11,20 +12,24 @@ Quest::Quest() {
     rewardAmount = 1;
 }
 
+// main constructor for creating a real quest
 Quest::Quest(std::vector<std::string> exercises, std::string statType, float chance, int reward)
     : exercises(exercises), statType(statType), successChance(chance), rewardAmount(reward), completed(false) {}
 
+// shows quest info to player — index just makes it look cleaner in menu
 void Quest::display(int index) const {
     if (index >= 0)
         std::cout << "[" << index << "] ";
 
     std::cout << (completed ? "[COMPLETED] " : "[ ] ");
     std::cout << "Stat: " << statType << " | Reward: +" << rewardAmount << " | Success Chance: " << int(successChance * 100) << "%\n";
+
     for (const std::string& ex : exercises) {
         std::cout << "  - " << ex << "\n";
     }
 }
 
+// flips quest to "done" so they can't farm it
 void Quest::markCompleted() {
     completed = true;
 }
@@ -45,13 +50,15 @@ float Quest::getSuccessChance() const {
     return successChance;
 }
 
-// 🔥 THE QUEST GENERATOR 🔥
+// randomly generate a new quest — this is where the juice is
 Quest Quest::generateRandom() {
-    srand(time(0));
+    srand(time(0)); // yea, it's not cryptographic, but it's fine for now
 
+    // pick a stat this quest will target
     std::vector<std::string> statTypes = { "strength", "endurance", "stamina" };
     std::string selectedStat = statTypes[rand() % statTypes.size()];
 
+    // pools of exercises — can expand later
     std::vector<std::string> strengthPool = {
         "Do 20 push-ups", "15 pull-ups", "20 tricep dips",
         "Shoulder press (15 reps)", "10 push-up holds", "Diamond 5 push-ups"
@@ -69,11 +76,13 @@ Quest Quest::generateRandom() {
 
     std::vector<std::string> pickedExercises;
 
+    // pick the pool based on stat
     std::vector<std::string>* source;
     if (selectedStat == "strength") source = &strengthPool;
     else if (selectedStat == "endurance") source = &endurancePool;
     else source = &staminaPool;
 
+    // pick 5 unique exercises from the selected pool
     while (pickedExercises.size() < 5) {
         std::string candidate = (*source)[rand() % source->size()];
         if (std::find(pickedExercises.begin(), pickedExercises.end(), candidate) == pickedExercises.end()) {
@@ -81,12 +90,14 @@ Quest Quest::generateRandom() {
         }
     }
 
-    float chance = 0.4f + static_cast<float>(rand() % 41) / 100.0f; // 0.4 to 0.8
-    int reward = 1 + rand() % 2; // 1 or 2
+    // roll for quest chance and reward
+    float chance = 0.4f + static_cast<float>(rand() % 41) / 100.0f; // between 0.4 and 0.8
+    int reward = 1 + rand() % 2; // 1 or 2 points
 
     return Quest(pickedExercises, selectedStat, chance, reward);
 }
 
+// turns quest data into a string for saving
 std::string Quest::serialize() const {
     std::ostringstream oss;
     oss << statType << "|" << successChance << "|" << rewardAmount << "|" << completed;
@@ -96,9 +107,11 @@ std::string Quest::serialize() const {
     return oss.str();
 }
 
+// turns saved string back into a quest
 Quest Quest::deserialize(const std::string& data) {
     std::istringstream iss(data);
     std::string token;
+
     std::getline(iss, token, '|');
     std::string stat = token;
 

@@ -13,7 +13,7 @@ protected:// Changed to protected as they are needed in children
     bool completed;
     float successChance;
     int rewardAmount;
-
+// constexpr is somethhing i founnd on internet , basically tells the compiler this value is known at compile time, not run time. , just like harcorded value
     static constexpr float minChance = 0.3f;
     static constexpr float maxChance = 0.6f;
     static constexpr int minReward = 2;

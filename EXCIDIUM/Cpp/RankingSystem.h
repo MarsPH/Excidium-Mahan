@@ -3,7 +3,7 @@
 
 #include <string>
 
-// ===============================
+
 // Yo broo, this is the node for each rank in the BST
 // Each rank like "E", "B", "S", "Monarch" has a threshold
 // If player's total stats >= threshold → they unlock that rank
@@ -21,7 +21,7 @@ struct RankNode {
 
 
 // This tree holds all rank thresholds and helps evaluate player rank
-// ===============================
+
 class RankTree {
 private:
     RankNode* root;  // Starting point of the BST
@@ -38,7 +38,7 @@ public:
     // Destructor clears all nodes from memory
     ~RankTree();
 
-    // Add a new rank manually (in case you ever want to make custom trees)
+    // Add a new rank manually
     void insert(std::string rank, int threshold);
 
     // This one should be called in constructor to auto-load all default ranks
