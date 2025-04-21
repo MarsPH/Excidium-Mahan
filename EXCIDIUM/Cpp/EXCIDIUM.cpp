@@ -132,6 +132,8 @@ void monitorTimedQuests() {
 						std::cout << "\n>> You tried. No reward this time.\n";
 					}
 					timedQuestQueue.pop();
+					auto newQuest = std::make_shared<TimedQuest>(TimedQuest::generateRandom());
+					timedQuestQueue.push(newQuest);
 					std::this_thread::sleep_for(std::chrono::seconds(2));
 					break;
 				}
