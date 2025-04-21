@@ -546,6 +546,7 @@ else{
 				char input;
 				std::cin >> input;
 				if (input == 'Y' || input == 'y') {
+					current->markCompleted();
 					float roll = static_cast<float>(rand()) / RAND_MAX;
 					if (roll < current->getSuccessChance()) {
 						std::cout << ">> Success! " << current->getStatType()
